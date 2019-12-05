@@ -1,18 +1,71 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <ActivityIndicator :status="currentActivityStatus" />
+
+    <Visualisation v-if="dataForVisualisation"
+                   :processed-data="dataForVisualisation"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+// Essentials
+import {ActivityStatus} from '@/types/enums'
+import API from '@/business-logic/API'
+import DataProcessing from "@/business-logic/DataProcessing";
+
+// Vue Components
+import ActivityIndicator from "@/components/ActivityIndicator";
+import Visualisation from "@/components/Visualisation";
 
 export default {
+
   name: 'app',
+
   components: {
-    HelloWorld
+    ActivityIndicator,
+    Visualisation
+  },
+
+  data () {
+    return {
+      currentActivityStatus: undefined,
+      dataForVisualisation: undefined
+    }
+  },
+
+  methods: {
+
+    async doTheThing () {
+      const me = this; // so that the meaning of 'this' is consistent.
+
+      // Start Loading
+      me.currentActivityStatus = ActivityStatus.Fetching;
+
+      try {
+
+        const rawData = await API.fetchData();
+        me.currentActivityStatus = ActivityStatus.Processing;
+
+        me.dataForVisualisation = await DataProcessing.processData(rawData);
+
+        // We are ready to render the viz!
+        me.currentActivityStatus = ActivityStatus.Ready
+
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Something went wrong: ", error);
+        me.currentActivityStatus = ActivityStatus.Failed
+      }
+    }
+
+  },
+
+  mounted () {
+    this.doTheThing()
   }
+
 }
 </script>
 

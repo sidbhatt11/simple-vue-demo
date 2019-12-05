@@ -6,9 +6,9 @@ export default class {
             console.log("Fetching data..");
             // Resolving after a second to simulate a network call
             setTimeout(() => {
-                resolve({ 'some': 'data' })
-            }, 1000)
-        })
+                resolve({ 'some': 'data' });
+            }, 1000);
+        });
     }
 
 }

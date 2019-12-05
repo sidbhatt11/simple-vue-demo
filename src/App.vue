@@ -11,8 +11,8 @@
 <script>
 
 // Essentials
-import {ActivityStatus} from '@/types/enums'
-import API from '@/business-logic/API'
+import { ActivityStatus } from '@/types/enums';
+import API from '@/business-logic/API';
 import DataProcessing from "@/business-logic/DataProcessing";
 
 // Vue Components
@@ -51,19 +51,19 @@ export default {
         me.dataForVisualisation = await DataProcessing.processData(rawData);
 
         // We are ready to render the viz!
-        me.currentActivityStatus = ActivityStatus.Ready
+        me.currentActivityStatus = ActivityStatus.Ready;
 
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("Something went wrong: ", error);
-        me.currentActivityStatus = ActivityStatus.Failed
+        me.currentActivityStatus = ActivityStatus.Failed;
       }
     }
 
   },
 
   mounted () {
-    this.doTheThing()
+    this.doTheThing();
   }
 
 }

@@ -11,8 +11,8 @@
 <script>
 
 // Essentials
-import { ActivityStatus } from '@/types/enums';
-import API from '@/business-logic/API';
+import { ActivityStatus } from "@/types/enums";
+import API from "@/business-logic/API";
 import DataProcessing from "@/business-logic/DataProcessing";
 
 // Vue Components

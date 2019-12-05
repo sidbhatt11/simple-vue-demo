@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { ActivityStatus } from '../types/enums';
+import { ActivityStatus } from "@/types/enums";
 
 export default {
 

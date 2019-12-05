@@ -48,7 +48,7 @@ export default {
         const rawData = await API.fetchData();
         me.currentActivityStatus = ActivityStatus.Processing;
 
-        me.dataForVisualisation = await DataProcessing.processData(rawData);
+        me.dataForVisualisation = await me.$worker.run(DataProcessing.processData, [rawData]);
 
         // We are ready to render the viz!
         me.currentActivityStatus = ActivityStatus.Ready;
